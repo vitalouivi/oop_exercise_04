@@ -137,5 +137,13 @@ print(std::ostream& os, const T& object) {
         step_print<0>(object, os);
     }
 }
+template<class U, class = void>
+struct HasFL : std::false_type {};
+
+template<class U>
+struct HasFL<
+    U, std::void_t< decltype(std::declval<const U>().first.substr(0)), decltype(std::declval<const U>().last.substr(0)) >
+> :
+    std::true_type {};
 
 #endif
