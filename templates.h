@@ -141,9 +141,9 @@ template<class U, class = void>
 struct HasFL : std::false_type {};
 
 template<class U>
-struct HasFL<
-    U, std::void_t< decltype(std::declval<const U>().first.substr(0)), decltype(std::declval<const U>().last.substr(0)) >
-> :
-    std::true_type {};
-
+struct HasFL<U> :
+    std::conjunction<
+    std::is_same<decltype(std::declval<const U>().first), std::string>,
+    std::is_same<decltype(std::declval<const U>().last), std::string>
+    > {};
 #endif
